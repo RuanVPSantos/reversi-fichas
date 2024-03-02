@@ -3,3 +3,4 @@
 /flask_session
 .env
 init_db.py
+/front_end
