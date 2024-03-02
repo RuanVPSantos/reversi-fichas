@@ -1,4 +1,6 @@
 from flask import Blueprint, jsonify
+from sqlalchemy import desc
+
 
 from app.extensions import db
 from app.serv.micro.roletagem import roletagem
@@ -18,7 +20,7 @@ def criar_ficha():
 
 @fichas_api.get("/")
 def listar_fichas():
-    fichas = db.session.execute(db.Select(Ficha)).scalars()
+    fichas = db.session.execute(db.Select(Ficha).order_by(Ficha.id.desc())).scalars()
     response = []
     for ficha in fichas:
         response.append(ficha.to_dict())
