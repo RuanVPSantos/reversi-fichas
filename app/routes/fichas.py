@@ -8,7 +8,7 @@ from app.serv.models import Ficha
 fichas_api = Blueprint("fichas_api", __name__, url_prefix="/fichas")
 
 
-@fichas_api.get("/criar")
+@fichas_api.get("/criar/")
 def criar_ficha():
     raca = roletagem("racas", 65)
     nova_ficha = Ficha(raca, etnia(raca), roletagem("ser", 100), roletagem("classe_social", 78))
