@@ -9,9 +9,7 @@ from app.extensions import db
 objeto = Flask(__name__)
 objeto.config.from_object(Config)
 objeto.config["SESSION_PERMANENT"] = False
-objeto.config["SESSION_TYPE"] = "filesystem"
-cors = CORS(objeto)
-objeto.config["CORS_HEADERS"] = "Content-Type"
+CORS(objeto)
 
 db.init_app(objeto)
 
