@@ -4,6 +4,10 @@ def etnia(raca):
     nova_etnia = ""
     if raca == "Humano":
         nova_etnia = ""
+        
+    if raca == 'Demi-Humanos':
+        nova_etnia = f'Demi-Humano {roletagem("demi_humanos", 84)}'
+        
     if raca == "Monstros":
         nova_etnia = f'{roletagem("monstros", 44)}'
         if nova_etnia == 'Djinn':
