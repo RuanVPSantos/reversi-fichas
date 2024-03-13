@@ -27,12 +27,11 @@ def criar_lote(qtd):
     for i in range(qtd):
         raca = roletagem("racas", 65)
         nova_ficha =  Ficha(raca, etnia(raca), roletagem("ser", 100), roletagem("classe_social", 78))
-        print(1)
+        print(f'fase 1, item {i}')
         fichas.append(nova_ficha)
-        print(2)
+    for i in range(len(fichas)):
         db.session.add(fichas[i])
-        print(3)
-        print(i)
+        print(f'fase 2, item{i}')
     db.session.commit()
     return {}, 200
 
@@ -40,22 +39,11 @@ def criar_lote(qtd):
 def enviar_dados():
     all_data = db.session.execute(db.select(Ficha)).scalars()
     df = pd.DataFrame([i.to_dict() for i in all_data])
-    # df[df['etnia'] == ""]['etnia'] = 'humano'    
-    # print(df)
-    dados = df.groupby(['etnia'], group_keys=True, as_index=False).count()
+    dados = df.groupby(['etnia'], group_keys=True, as_index=False).count().sort_values('raca', ascending=False)
     # print(dados)
     resp = []
     for linha in dados.iloc:
         resp.append({'etnia' : linha['etnia'], 'percentual' : round(linha['raca'] / len(df) * 100, 2)})
-    # print(resp)
-    # print(df['etnia'].value_counts())
-    # for linha in dados.iloc:
-    #     print()
-    #     resp[i] = linha.ser / 5000
-    #     i += 1
-    # print(resp)
-    # df['Eng_percent'] = (df1['Eng_score'] / 
-    #                   df1['Eng_score'].sum()) * 100
     return jsonify(resp), 200
 
 
